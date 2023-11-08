@@ -12,7 +12,7 @@ The script uses the Get-ChildItem cmdlet to retrieve all the .ps1 files in the F
 To use this script, you can import the module using the Import-Module cmdlet:
 
 ```powershell
-Import-Module ./FabTools.psm1
+Import-Module ./Fabtools.psm1
 ```
 #>
 

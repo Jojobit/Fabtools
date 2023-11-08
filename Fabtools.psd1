@@ -70,7 +70,7 @@
     # FormatsToProcess = @()
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-    NestedModules = 'FabTools.psm1'
+    NestedModules = 'Fabtools.psm1'
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @(
@@ -170,16 +170,16 @@
             # Tags = @()
 
             # A URL to the license for this module.
-            LicenseUri = 'https://www.github.com/jojobit/FabTools/LICENSE.md'
+            LicenseUri = 'https://www.github.com/jojobit/Fabtools/LICENSE.md'
 
             # A URL to the main website for this project.
-            ProjectUri = 'https://www.github.com/jojobit/FabTools'
+            ProjectUri = 'https://www.github.com/jojobit/Fabtools'
 
             # A URL to an icon representing this module.
-            # IconUri = ''
+            IconUri = 'https://www.github.com/jojobit/Fabtools/Fabtools.ico'
 
             # ReleaseNotes of this module
-            ReleaseNotes = @('Verion 0.5.0:
+            ReleaseNotes = @('Verion 0.5.3:
             First public release of the module.
             '
             )
