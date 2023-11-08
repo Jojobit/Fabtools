@@ -1,13 +1,39 @@
+<#
+.SYNOPSIS
+Removes a workspace.
 
-# Path: FabTools/Functions/Remove-FabGroup.ps1
+.DESCRIPTION
+The Remove-FabWorkspace function removes a workspace. It supports multiple aliases for flexibility.
 
-function Remove-FabWorkspace  {
-    [Alias("Remove-PowerBIGroup", "Remove-PowerBIWorkspace","Remove-FabGroup","Remove-FabricWorkspace","Remove-FabricGroup")]
+.PARAMETER groupID
+The ID of the group (workspace). This is a mandatory parameter.
+
+.EXAMPLE
+Remove-FabWorkspace -groupID "your-group-id"
+
+This example removes a workspace given the group ID.
+
+.NOTES
+The function retrieves the PowerBI access token and makes a DELETE request to the PowerBI API to remove the workspace.
+#>
+
+# This function removes a workspace.
+function Remove-FabWorkspace {
+    [CmdletBinding(SupportsShouldProcess)]
+    # Define aliases for the function for flexibility.
+    [Alias("Remove-PowerBIGroup", "Remove-PowerBIWorkspace", "Remove-FabGroup", "Remove-FabricWorkspace", "Remove-FabricGroup")]
+
+    # Define a parameter for the group ID.
     Param (
-        [Parameter(Mandatory=$true)]
-        [string]$groupID
+        [Parameter(Mandatory = $true)]
+        [string]$workspaceID
     )
-    $token = (Get-PowerBIAccessToken)["Authorization"]
-    return Invoke-RestMethod -uri "https://api.powerbi.com/v1.0/myorg/groups/$groupID" -Headers @{ "Authorization" = $token } -Method Delete
 
+    # Retrieve the PowerBI access token.
+    $token = (Get-PowerBIAccessToken)["Authorization"]
+
+    # Make a DELETE request to the PowerBI API to remove the workspace.
+    if ($PSCmdlet.ShouldProcess("Remove workspace $workspaceID")) {
+        return Invoke-RestMethod -uri "https://api.powerbi.com/v1.0/myorg/groups/$workspaceID" -Headers @{ "Authorization" = $token } -Method Delete
+    }
 }
