@@ -3,13 +3,13 @@
 Removes a workspace.
 
 .DESCRIPTION
-The Remove-FabWorkspace function removes a workspace. It supports multiple aliases for flexibility.
+The Remove-FabricWorkspace function removes a workspace. It supports multiple aliases for flexibility.
 
 .PARAMETER groupID
 The ID of the group (workspace). This is a mandatory parameter.
 
 .EXAMPLE
-Remove-FabWorkspace -groupID "your-group-id"
+Remove-FabricWorkspace -groupID "your-group-id"
 
 This example removes a workspace given the group ID.
 
@@ -18,10 +18,10 @@ The function retrieves the PowerBI access token and makes a DELETE request to th
 #>
 
 # This function removes a workspace.
-function Remove-FabWorkspace {
+function Remove-FabricWorkspace {
     [CmdletBinding(SupportsShouldProcess)]
     # Define aliases for the function for flexibility.
-    [Alias("Remove-PowerBIGroup", "Remove-PowerBIWorkspace", "Remove-FabGroup", "Remove-FabricWorkspace", "Remove-FabricGroup")]
+    [Alias("Remove-PowerBIGroup", "Remove-PowerBIWorkspace", "Remove-FabGroup", "Remove-FabWorkspace", "Remove-FabricGroup")]
 
     # Define a parameter for the group ID.
     Param (

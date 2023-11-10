@@ -3,10 +3,10 @@
 Retrieves the tenant overrides for all capacities.
 
 .DESCRIPTION
-The Get-FabCapacityTenantOverrides function retrieves the tenant overrides for all capacities. It supports multiple aliases for flexibility.
+The Get-FabricCapacityTenantOverrides function retrieves the tenant overrides for all capacities. It supports multiple aliases for flexibility.
 
 .EXAMPLE
-Get-FabCapacityTenantOverrides
+Get-FabricCapacityTenantOverrides
 
 This example retrieves the tenant overrides for all capacities.
 
@@ -15,9 +15,9 @@ The function retrieves the PowerBI access token and makes a GET request to the F
 #>
 
 # This function retrieves the tenant overrides for all capacities.
-function Get-FabCapacityTenantOverrides  {
+function Get-FabricCapacityTenantOverrides  {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBICapacityTenantOverrides","Get-FabricCapacityTenantOverrides")]
+    [Alias("Get-PowerBICapacityTenantOverrides","Get-FabCapacityTenantOverrides")]
 
     # Retrieve the PowerBI access token.
     $token = (Get-PowerBIAccessToken)["Authorization"]

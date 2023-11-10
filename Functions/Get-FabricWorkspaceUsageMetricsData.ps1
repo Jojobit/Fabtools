@@ -3,7 +3,7 @@
 Retrieves workspace usage metrics data.
 
 .DESCRIPTION
-The Get-FabWorkspaceUsageMetricsData function retrieves workspace usage metrics. It supports multiple aliases for flexibility.
+The Get-FabricWorkspaceUsageMetricsData function retrieves workspace usage metrics. It supports multiple aliases for flexibility.
 
 .PARAMETER workspaceId
 The ID of the workspace. This is a mandatory parameter.
@@ -12,7 +12,7 @@ The ID of the workspace. This is a mandatory parameter.
 The username. This is a mandatory parameter.
 
 .EXAMPLE
-Get-FabWorkspaceUsageMetricsData -workspaceId "your-workspace-id" -username "your-username"
+Get-FabricWorkspaceUsageMetricsData -workspaceId "your-workspace-id" -username "your-username"
 
 This example retrieves the workspace usage metrics for a specific workspace given the workspace ID and username.
 
@@ -21,9 +21,9 @@ The function retrieves the PowerBI access token and creates a new usage metrics 
 #>
 
 # This function retrieves workspace usage metrics.
-function Get-FabWorkspaceUsageMetricsData {
+function Get-FabricWorkspaceUsageMetricsData {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBIWorkspaceUsageMetricsData", "Get-FabricWorkspaceUsageMetricsData")]
+    [Alias("Get-PowerBIWorkspaceUsageMetricsData", "Get-FabWorkspaceUsageMetricsData")]
 
     # Define parameters for the workspace ID and username.
     param(

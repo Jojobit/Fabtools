@@ -3,7 +3,7 @@
 Retrieves usage metrics for a specific dataset.
 
 .DESCRIPTION
-The Get-FabUsageMetricsQuery function retrieves usage metrics for a specific dataset. It supports multiple aliases for flexibility.
+The Get-FabricUsageMetricsQuery function retrieves usage metrics for a specific dataset. It supports multiple aliases for flexibility.
 
 .PARAMETER DatasetID
 The ID of the dataset. This is a mandatory parameter.
@@ -21,7 +21,7 @@ The access token. This is a mandatory parameter.
 The name of the impersonated user. This is an optional parameter.
 
 .EXAMPLE
-Get-FabUsageMetricsQuery -DatasetID "your-dataset-id" -groupId "your-group-id" -reportname "your-report-name" -token "your-token"
+Get-FabricUsageMetricsQuery -DatasetID "your-dataset-id" -groupId "your-group-id" -reportname "your-report-name" -token "your-token"
 
 This example retrieves the usage metrics for a specific dataset given the dataset ID, group ID, report name, and token.
 
@@ -30,9 +30,9 @@ The function defines the headers and body for a POST request to the PowerBI API 
 #>
 
 # This function retrieves usage metrics for a specific dataset.
-function Get-FabUsageMetricsQuery {
+function Get-FabricUsageMetricsQuery {
   # Define aliases for the function for flexibility.
-  [Alias("Get-PowerBIUsageMetricsQuery","Get-FabricUsageMetricsQuery")]
+  [Alias("Get-PowerBIUsageMetricsQuery","Get-FabUsageMetricsQuery")]
 
   # Define parameters for the dataset ID, group ID, report name, token, and impersonated user.
   param (

@@ -3,13 +3,13 @@
 Retrieves the workspace usage metrics dataset ID.
 
 .DESCRIPTION
-The New-FabWorkspaceUsageMetricsReport function retrieves the workspace usage metrics dataset ID. It supports multiple aliases for flexibility.
+The New-FabricWorkspaceUsageMetricsReport function retrieves the workspace usage metrics dataset ID. It supports multiple aliases for flexibility.
 
 .PARAMETER workspaceId
 The ID of the workspace. This is a mandatory parameter.
 
 .EXAMPLE
-New-FabWorkspaceUsageMetricsReport -workspaceId "your-workspace-id"
+New-FabricWorkspaceUsageMetricsReport -workspaceId "your-workspace-id"
 
 This example retrieves the workspace usage metrics dataset ID for a specific workspace given the workspace ID.
 
@@ -18,9 +18,9 @@ The function retrieves the PowerBI access token and the Fabric API cluster URI. 
 #>
 
 # This function retrieves the workspace usage metrics dataset ID.
-function New-FabWorkspaceUsageMetricsReport {
+function New-FabricWorkspaceUsageMetricsReport {
     # Define aliases for the function for flexibility.
-    [Alias("New-PowerBIWorkspaceUsageMetricsReport", "New-FabricWorkspaceUsageMetricsReport")]
+    [Alias("New-PowerBIWorkspaceUsageMetricsReport", "New-FabWorkspaceUsageMetricsReport")]
     [CmdletBinding(SupportsShouldProcess)]
     # Define a parameter for the workspace ID.
     param(

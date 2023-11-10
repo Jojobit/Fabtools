@@ -3,31 +3,31 @@
    Retrieves the refresh history of all datasets in a specified PowerBI workspace.
 
 .DESCRIPTION
-   The Get-FabWorkspaceDatasetRefreshes function uses the PowerBI cmdlets to retrieve the refresh history of all datasets in a specified workspace.
+   The Get-FabricWorkspaceDatasetRefreshes function uses the PowerBI cmdlets to retrieve the refresh history of all datasets in a specified workspace.
    It uses the workspace ID to get the workspace and its datasets, and then retrieves the refresh history for each dataset.
 
 .PARAMETER WorkspaceID
    The ID of the PowerBI workspace. This is a mandatory parameter.
 
 .EXAMPLE
-   Get-FabWorkspaceDatasetRefreshes -WorkspaceID "12345678-90ab-cdef-1234-567890abcdef"
+   Get-FabricWorkspaceDatasetRefreshes -WorkspaceID "12345678-90ab-cdef-1234-567890abcdef"
 
    This command retrieves the refresh history of all datasets in the workspace with the specified ID.
 
 .INPUTS
-   String. You can pipe a string that contains the workspace ID to Get-FabWorkspaceDatasetRefreshes.
+   String. You can pipe a string that contains the workspace ID to Get-FabricWorkspaceDatasetRefreshes.
 
 .OUTPUTS
-   Array. Get-FabWorkspaceDatasetRefreshes returns an array of refresh history objects.
+   Array. Get-FabricWorkspaceDatasetRefreshes returns an array of refresh history objects.
 
 .NOTES
-   Alias: Get-PowerBIWorkspaceDatasetRefreshes, Get-FabricWorkspaceDatasetRefreshes
+   Alias: Get-PowerBIWorkspaceDatasetRefreshes, Get-FabWorkspaceDatasetRefreshes
 #>
 
 # Define a function to get the refresh history of all datasets in a PowerBI workspace
-function Get-FabWorkspaceDatasetRefreshes {
+function Get-FabricWorkspaceDatasetRefreshes {
     # Set aliases for the function
-    [Alias("Get-PowerBIWorkspaceDatasetRefreshes","Get-FabricWorkspaceDatasetRefreshes")]
+    [Alias("Get-PowerBIWorkspaceDatasetRefreshes","Get-FabWorkspaceDatasetRefreshes")]
     param(
         # Define a mandatory parameter for the workspace ID
         [Parameter(Mandatory=$true)]

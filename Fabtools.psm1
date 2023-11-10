@@ -1,20 +1,58 @@
 <#
 .SYNOPSIS
-This script is the module script (.psm1) for Fabtools.
+   This script loads necessary modules, sources functions from .ps1 files, and sets aliases for PowerBI functions.
 
 .DESCRIPTION
-The script imports all the functions from the Functions folder and exports them as module members. It also sets aliases for several PowerBI functions.
-
-.NOTES
-The script uses the Get-ChildItem cmdlet to retrieve all the .ps1 files in the Functions folder. It then uses a foreach loop to dot-source each function and export it as a module member. The script also uses the Set-Alias cmdlet to set aliases for several PowerBI functions.
+   The script first tries to load the Az.Accounts and Az.Resources modules. If these modules are not available, it installs and imports them.
+   It then gets all .ps1 files in the Functions folder, sources each function, and exports it as a module member.
+   Finally, it sets an alias for the PowerBI login function.
 
 .EXAMPLE
-To use this script, you can import the module using the Import-Module cmdlet:
+   .\Fabtools.psm1
 
-```powershell
-Import-Module ./Fabtools.psm1
-```
+   This command runs the script.
+
+.INPUTS
+   None. You cannot pipe inputs to this script.
+
+.OUTPUTS
+   None. This script does not return any output.
+
+.NOTES
+   This script is part of the Fabtools module.
 #>
+
+# Try to load necessary modules
+try {
+    # Check if Az.Accounts module is available
+    if (get-module -ListAvailable -name Az.Accounts) {
+        # Import Az.Accounts module
+        Import-Module Az.Accounts -erroraction silentlycontinue
+        write-information "Az.Accounts module is loaded"
+    }
+    else {
+        write-information "Az.Accounts module is not loaded. Loading it now..."
+        # Install and import Az.Accounts module
+        install-module -name Az.Accounts -force -scope allusers
+        Import-Module Az.Accounts -erroraction silentlycontinue
+    }
+    # Check if Az.Resources module is available
+    if (get-module -ListAvailable -name Az.Resources) {
+        # Import Az.Resources module
+        Import-Module Az.Resources -erroraction silentlycontinue
+        write-information "Az.Resources module is loaded"
+    }
+    else {
+        write-information "Az.Resources module is not loaded. Loading it now..."
+        # Install and import Az.Resources module
+        install-module -name Az.Resources -force -scope allusers
+        Import-Module Az.Resources -erroraction silentlycontinue
+    }
+}
+catch {
+    # Handle any exceptions that occur during module loading
+    write-information "Looks like the assemblies are allready loaded"
+}
 
 # Get all .ps1 files in the Functions folder
 $functions = Get-ChildItem -Path "$PSScriptRoot\Functions" -Filter *.ps1

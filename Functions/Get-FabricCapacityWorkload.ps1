@@ -18,9 +18,9 @@ The function retrieves the PowerBI access token and makes a GET request to the P
 #>
 
 # This function retrieves the workloads for a specific capacity.
-function Get-FabCapacityWorkload  {
+function Get-FabricCapacityWorkload  {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBICapacityWorkload","Get-FabricCapacityWorkload")]
+    [Alias("Get-PowerBICapacityWorkload","Get-FabCapacityWorkload")]
 
     # Define a mandatory parameter for the capacity ID.
     Param (

@@ -3,7 +3,7 @@
 Retrieves the users of a workspace.
 
 .DESCRIPTION
-The Get-FabWorkspaceUsers function retrieves the users of a workspace. It supports multiple aliases for flexibility.
+The Get-FabricWorkspaceUsers function retrieves the users of a workspace. It supports multiple aliases for flexibility.
 
 .PARAMETER WorkspaceId
 The ID of the workspace. This is a mandatory parameter for the 'WorkspaceId' parameter set.
@@ -12,12 +12,12 @@ The ID of the workspace. This is a mandatory parameter for the 'WorkspaceId' par
 The workspace object. This is a mandatory parameter for the 'WorkspaceObject' parameter set and can be piped into the function.
 
 .EXAMPLE
-Get-FabWorkspaceUsers -WorkspaceId "your-workspace-id"
+Get-FabricWorkspaceUsers -WorkspaceId "your-workspace-id"
 
 This example retrieves the users of a workspace given the workspace ID.
 
 .EXAMPLE
-$workspace | Get-FabWorkspaceUsers
+$workspace | Get-FabricWorkspaceUsers
 
 This example retrieves the users of a workspace given a workspace object.
 
@@ -26,9 +26,9 @@ The function defines parameters for the workspace ID and workspace object. If th
 #>
 
 # This function retrieves the users of a workspace.
-function Get-FabWorkspaceUsers {
+function Get-FabricWorkspaceUsers {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBIWorkspaceUsers", "Get-FabricWorkspaceUsers")]
+    [Alias("Get-PowerBIWorkspaceUsers", "Get-FabWorkspaceUsers")]
 
     # Define parameters for the workspace ID and workspace object.
     param(

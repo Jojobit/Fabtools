@@ -3,7 +3,7 @@
 Retrieves the state of a specific capacity.
 
 .DESCRIPTION
-The Get-FabCapacityState function retrieves the state of a specific capacity. It supports multiple aliases for flexibility.
+The Get-FabricCapacityState function retrieves the state of a specific capacity. It supports multiple aliases for flexibility.
 
 .PARAMETER subscriptionID
 The ID of the subscription. This is a mandatory parameter. This is a parameter found in Azure, not Fabric.
@@ -15,7 +15,7 @@ The resource group. This is a mandatory parameter. This is a parameter found in 
 The capacity. This is a mandatory parameter. This is a parameter found in Azure, not Fabric.
 
 .EXAMPLE
-Get-FabCapacityState -subscriptionID "your-subscription-id" -resourcegroupID "your-resource-group" -capacityID "your-capacity"
+Get-FabricCapacityState -subscriptionID "your-subscription-id" -resourcegroupID "your-resource-group" -capacityID "your-capacity"
 
 This example retrieves the state of a specific capacity given the subscription ID, resource group, and capacity.
 
@@ -24,9 +24,9 @@ The function checks if the Azure token is null. If it is, it connects to the Azu
 #>
 
 # This function retrieves the state of a specific capacity.
-function Get-FabCapacityState {
+function Get-FabricCapacityState {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBICapacityState","Get-FabricCapacityState")]
+    [Alias("Get-PowerBICapacityState","Get-FabCapacityState")]
 
     # Define mandatory parameters for the subscription ID, resource group, and capacity.
     Param (

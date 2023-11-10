@@ -3,10 +3,10 @@
 Retrieves the cluster URI for the tenant.
 
 .DESCRIPTION
-The Get-FabAPIclusterURI function retrieves the cluster URI for the tenant. It supports multiple aliases for flexibility.
+The Get-FabricAPIclusterURI function retrieves the cluster URI for the tenant. It supports multiple aliases for flexibility.
 
 .EXAMPLE
-Get-FabAPIclusterURI
+Get-FabricAPIclusterURI
 
 This example retrieves the cluster URI for the tenant.
 
@@ -18,9 +18,9 @@ The function retrieves the PowerBI access token and makes a GET request to the P
 #This function retrieves the cluster URI for the tenant.
 
 
-function Get-FabAPIclusterURI  {
+function Get-FabricAPIclusterURI  {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBIClusterURI","Get-FabricClusterURI")]
+    [Alias("Get-PowerBIClusterURI","Get-FabClusterURI")]
 
     # Retrieve the PowerBI access token.
     $token = (Get-PowerBIAccessToken)["Authorization"]

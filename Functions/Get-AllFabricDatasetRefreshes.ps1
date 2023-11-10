@@ -3,10 +3,10 @@
 Retrieves all refreshes for all datasets in all PowerBI workspaces.
 
 .DESCRIPTION
-The Get-AllFabDatasetRefreshes function retrieves all refreshes for all datasets in all PowerBI workspaces. It supports multiple aliases for flexibility.
+The Get-AllFabricDatasetRefreshes function retrieves all refreshes for all datasets in all PowerBI workspaces. It supports multiple aliases for flexibility.
 
 .EXAMPLE
-Get-AllFabDatasetRefreshes
+Get-AllFabricDatasetRefreshes
 
 This example retrieves all refreshes for all datasets in all PowerBI workspaces.
 
@@ -15,9 +15,9 @@ The function makes a GET request to the PowerBI API to retrieve the refreshes. I
 #>
 
 # This function retrieves all refreshes for all datasets in all PowerBI workspaces.
-function Get-AllFabDatasetRefreshes {
+function Get-AllFabricDatasetRefreshes {
     # Define aliases for the function for flexibility.
-    [Alias("Get-AllPowerBIDatasetRefreshes", "Get-AllFabDatasetRefreshes", "Get-AllFabricDatasetRefreshes")]
+    [Alias("Get-AllPowerBIDatasetRefreshes", "Get-AllFabDatasetRefreshes")]
 
     # Retrieve all PowerBI workspaces.
     $wsps = Get-PowerBIWorkspace

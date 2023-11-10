@@ -1,83 +1,75 @@
-# Power BI Workspace Usage Metrics
+![Fabtools](Fabtools.png)
+# Fabtools PowerShell Module
 
-This repository contains PowerShell scripts for retrieving usage metrics data from Power BI workspaces. You can use these functions to gather insights into the usage patterns of your Power BI workspaces, including metrics such as workspace views, report views, and more.
+Fabtools is a PowerShell module designed to facilitate the management of PowerBI workspaces and capacities.
+It allows for various administrative tasks to be automated and integrated into IT management workflows.
 
-## Prerequisites
+## Features
 
-Before using these scripts, make sure you have the following prerequisites:
+- Manage PowerBI workspaces and datasets.
+- Assign PowerBI workspaces to capacities.
+- Retrieve and manipulate PowerBI tenant settings.
+- Handle PowerBI access tokens for authentication.
+- Suspend and resume Azure capacities.
+- Fabric-friendly aliases for lots of the old PowerBi cmdlets
 
-- **Power BI Account**: You need to have a valid Power BI account with the necessary permissions to access the workspaces and datasets you want to collect usage metrics for.
+## Getting Started
 
-- **PowerShell**: Ensure that you have PowerShell installed on your system. These scripts are designed to run in a PowerShell environment.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## Installation
+### Prerequisites
 
-1. Clone or download this repository to your local machine.
+- PowerShell 5.1 or higher
+- Access to PowerBI service and Azure subscription (for certain functions)
+- Necessary permissions to manage PowerBI workspaces and Fabric capacities
+- The following PowerShell modules: MicrosoftPowerBIMgmt, Az.Accounts, Az.Resources
 
-2. Open PowerShell and navigate to the directory where you saved the repository.
+### Installing
 
-3. Run the following command to load the functions:
+To install the Fabtools module, you can install it from the PowerShell Gallery:
 
-   ```powershell
-   .\PowerBI-UsageMetrics.ps1
-   ```
+```powershell
+Install-Module Fabtools 
+```
+
+Or clone the repository to your local machine and import the module:
+
+```powershell
+# Clone the repository
+git clone https://github.com/Jojobit/fabtools.git
+
+# Import the module
+Import-Module ./Fabtools/Fabtools.psm1
+```
+
+
 
 ## Usage
 
-### 1. Get Cluster URI
-
-Use the `Get-PowerBIAPIclusterURI` function to retrieve the cluster URI for your Power BI tenant. This URI is required for subsequent API calls.
+Once imported, you can call any of the functions provided by the module. For example:
 
 ```powershell
-$clusterURI = Get-PowerBIAPIclusterURI
+# Assign a workspace to a capacity
+Assign-FabricWorkspaceToCapacity -WorkspaceId "Workspace-GUID" -CapacityId "Capacity-GUID"
 ```
 
-### 2. Retrieve Workspace Usage Metrics
+Refer to the individual function documentation for detailed usage instructions.
 
-To collect usage metrics for a specific Power BI workspace, use the `Get-PowerBIWorkspaceUsageMetrics` function. You will need the `workspaceId` and a valid user `username` with access to the workspace.
+## Contributing
 
-```powershell
-$workspaceId = "your_workspace_id"
-$username = "your_username"
-$usageMetrics = Get-PowerBIWorkspaceUsageMetrics -workspaceId $workspaceId -username $username
-```
+Contributions to Fabtools are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, 
+and the process for submitting pull requests to us.
 
-The function retrieves various usage metrics, including workspace views, report views, and more, and returns them as a PowerShell hashtable.
+## Authors
 
-### 3. Export Metrics to CSV
+- **Ioana Bouariu** - *Initial work* - [Jojobit](https://github.com/Jojobit)
 
-To export specific metrics to a CSV file, you can use the following code as an example:
-
-```powershell
-# Example: Export workspace views to CSV
-$workspaceViews = $usageMetrics.'Workspace views'.results.tables.rows
-$workspaceViews | Export-Csv -Path "workspaceviews.csv" -Append -NoTypeInformation
-```
-
-Replace `'Workspace views'` with the metric name you want to export, and specify the desired CSV file path.
-
-### 4. Loop Through Multiple Workspaces
-
-To collect usage metrics for multiple Power BI workspaces, you can use a loop as shown below:
-
-```powershell
-$allReports = @()
-$workspaces = Get-PowerBIWorkspace
-
-foreach ($workspace in $workspaces) {
-    $usageMetrics = Get-PowerBIWorkspaceUsageMetrics -workspaceId $workspace.id -username "your_username"
-    $allReports += $usageMetrics
-}
-```
-
-## Disclaimer
-
-These scripts are provided as-is, and their usage may require adjustments to fit your specific requirements and environment. Ensure that you have the necessary permissions and follow best practices when working with APIs and sensitive data.
+See also the list of [contributors](https://github.com/Jojobit/fabtools/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
----
+## Acknowledgments
 
-**Note**: Please make sure to replace `"your_workspace_id"` and `"your_username"` with your actual Power BI workspace ID and username before running the scripts.
+- GitHub Copilot and ChatGPT for helping with the documentation

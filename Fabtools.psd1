@@ -12,7 +12,7 @@
     # RootModule = ''
 
     # Version number of this module.
-    ModuleVersion     = '0.5.2'
+    ModuleVersion     = '0.6.0'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -55,10 +55,10 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules   = @('MicrosoftPowerBIMgmt', 'Az.Accounts', 'Az.Resources')
+    RequiredModules   = @('MicrosoftPowerBIMgmt')
 
     # Assemblies that must be loaded prior to importing this module
-    # RequiredAssemblies = @()
+    #RequiredAssemblies = @('Az.Accounts', 'Az.Resources')
 
     # Script files (.ps1) that are run in the caller's environment prior to importing this module.
     # ScriptsToProcess = @()
@@ -74,25 +74,26 @@
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @(
-        'Set-FabWorkspaceToCapacity',
-        'Get-AllFabDatasetRefreshes',
-        'Get-FabAPIclusterURI',
-        'Get-FabCapacity',
-        'Get-FabCapacityRefreshables',
-        'Get-FabCapacityState',
-        'Get-FabCapacityTenantOverrides',
-        'Get-FabCapacityWorkload',
-        'Get-FabDatasetRefreshes',
-        'Get-FabTenantSettings',
-        'Get-FabUsagemetricsQuery',
-        'Get-FabWorkspaceDatasetRefreshes',
-        'Get-FabWorkspaceUsageMetricsData',
-        'Get-FabWorkspaceUsers',
+        'Set-FabricWorkspaceToCapacity',
+        'Get-AllFabricDatasetRefreshes',
+        'Get-AllFabricCapacities',
+        'Get-FabricAPIclusterURI',
+        'Get-FabricCapacityRefreshables',
+        'Get-FabricCapacityState',
+        'Get-FabricCapacityTenantOverrides',
+        'Get-FabricCapacityWorkload',
+        'Get-FabricDatasetRefreshes',
+        'Get-FabricTenantSettings',
+        'Get-FabricUsagemetricsQuery',
+        'Get-FabricWorkspaceDatasetRefreshes',
+        'Get-FabricWorkspaceUsageMetricsData',
+        'Get-FabricWorkspaceUsers',
         'Get-SHA256',
-        'New-FabWorkspaceUsageMetricsReport',
-        'Resume-FabCapacity',
-        'Suspend-FabCapacity',
-        'Remove-FabWorkspace'
+        'New-FabricWorkspaceUsageMetricsReport',
+        'Resume-FabricCapacity',
+        'Suspend-FabricCapacity',
+        'Remove-FabricWorkspace',
+        'Invoke-FabricDatasetRefresh'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -106,25 +107,26 @@
         'Set-PowerBIWorkspaceToCapacity',
         'Set-PowerBIGroupToCapacity',
         'Set-FabGroupToCapacity',
-        'Set-FabricWorkspaceToCapacity',
+        'Set-FabWorkspaceToCapacity',
+        'Set-FabricGroupToCapacity',
         'Get-PowerBIUsagemetricsQuery',
         'Get-PowerBIWorkspaceUsageMetrics',
-        'Get-FabricWorkspaceUsageMetrics',
-        'Get-FabricWorkspaceDatasetRefreshes',
-        'Get-FabricWorkspaceUsers',
-        'Get-FabricCapacity',
-        'Get-FabricCapacityRefreshables',
-        'Get-FabricCapacityState',
-        'Get-FabricCapacityTenantOverides',
-        'Get-FabricCapacityWorkload',
-        'Get-FabricDatasetRefreshes',
-        'Get-FabricTenantSettings',
-        'Get-FabricUsagemetricsQuery',
+        'Get-FabWorkspaceUsageMetrics',
+        'Get-FabWorkspaceDatasetRefreshes',
+        'Get-FabWorkspaceUsers',
+        'Get-FabCapacity',
+        'Get-FabCapacityRefreshables',
+        'Get-FabCapacityState',
+        'Get-FabCapacityTenantOverides',
+        'Get-FabCapacityWorkload',
+        'Get-FabDatasetRefreshes',
+        'Get-FabTenantSettings',
+        'Get-FabUsagemetricsQuery',
         'Get-SHA256',
         'New-PowerBIWorkspaceUsageMetrics',
-        'New-FabricWorkspaceUsageMetrics',
-        'Resume-FabricCapacity',
-        'Suspend-FabricCapacity',
+        'New-FabWorkspaceUsageMetrics',
+        'Resume-FabCapacity',
+        'Suspend-FabCapacity',
         'Login-Fabric',
         'Get-FabWorkspace',
         'Get-FabReport',
@@ -144,12 +146,14 @@
         'New-FabricGroup',
         'New-FabricWorkspace',
         'Get-FabricCapacity',
-        'Get-FabCapacity',
         'Remove-FabricGroup',
         'Remove-FabGroup',
-        'Remove-FabricWorkspace',
+        'Remove-FabWorkspace',
         'Remove-PowerBIWorkspace',
-        'Remove-PowerBIGroup'
+        'Remove-PowerBIGroup',
+        'Invoke-PowerBIDatasetRefresh',
+        'Invoke-FabDatasetRefresh',
+        'Get-AllFabCapacities'
     )
 
     # DSC resources to export from this module
@@ -179,8 +183,13 @@
             IconUri = 'https://www.github.com/jojobit/Fabtools/Fabtools.ico'
 
             # ReleaseNotes of this module
-            ReleaseNotes = @('Verion 0.5.3:
-            First public release of the module.
+            ReleaseNotes = @('Verision 0.6.0:
+            - Added Get-AllFabricCapacities function to get all capacities in a tenant.
+            - Added invoke-FabricDatasetRefresh function to refresh a dataset.
+            - changed the main functions to be with the Fabric prefix instead of Fab, and added Fab as aliases.
+            - added IconUri to the manifest.
+
+
             '
             )
 
