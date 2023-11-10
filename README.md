@@ -1,4 +1,4 @@
-![Fabtools](Fabtools.png){:width="150" }
+![Fabtools](Fabtools.png)
 
 # Fabtools PowerShell Module
 
