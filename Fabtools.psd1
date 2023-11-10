@@ -12,7 +12,7 @@
     # RootModule = ''
 
     # Version number of this module.
-    ModuleVersion     = '0.6.0'
+    ModuleVersion     = '0.6.1'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -180,7 +180,7 @@
             ProjectUri = 'https://www.github.com/jojobit/Fabtools'
 
             # A URL to an icon representing this module.
-            IconUri = 'https://www.github.com/jojobit/Fabtools/Fabtools.ico'
+            IconUri = 'https://raw.githubusercontent.com/Jojobit/Fabtools/main/Fabtools.ico'
 
             # ReleaseNotes of this module
             ReleaseNotes = @('Verision 0.6.0:
