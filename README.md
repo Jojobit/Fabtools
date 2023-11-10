@@ -1,4 +1,5 @@
-![Fabtools](Fabtools.png){:width="150"}
+![Fabtools](Fabtools.png){:width="150" }
+
 # Fabtools PowerShell Module
 
 Fabtools is a PowerShell module designed to facilitate the management of PowerBI workspaces and capacities.
