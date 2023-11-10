@@ -1,4 +1,4 @@
-![Fabtools](Fabtools.png)
+<img src="Fabtools.png" alt="drawing" width="200"/>
 
 # Fabtools PowerShell Module
 
