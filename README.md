@@ -2,8 +2,8 @@
 
 # Fabtools PowerShell Module
 
-Fabtools is a PowerShell module designed to facilitate the management of PowerBI workspaces and capacities.
-It allows for various administrative tasks to be automated and integrated into IT management workflows.
+Fabtools is a PowerShell module to be able to able to do more with Microsoft Fabric and Power BI.
+It allows for various administrative tasks to be automated and integrated into workflows.
 
 ## Features
 
@@ -12,7 +12,7 @@ It allows for various administrative tasks to be automated and integrated into I
 - Retrieve and manipulate PowerBI tenant settings.
 - Handle PowerBI access tokens for authentication.
 - Suspend and resume Azure capacities.
-- Fabric-friendly aliases for lots of the old PowerBi cmdlets
+- Fabric-friendly aliases for lots of the old PowerBI cmdlets
 
 ## Getting Started
 
