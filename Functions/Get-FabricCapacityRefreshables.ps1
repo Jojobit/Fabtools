@@ -20,18 +20,25 @@ The function retrieves the PowerBI access token and makes a GET request to the P
 # This function retrieves the top refreshable capacities for the tenant.
 function Get-FabricCapacityRefreshables  {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBICapacityRefreshables","Get-FabCapacityRefreshables")]
+    [Alias("Get-FabCapacityRefreshables")]
 
     # Define a mandatory parameter for the number of top refreshable capacities to retrieve.
     Param (
         [Parameter(Mandatory=$false)]
-        [string]$top = 5
+        [string]$top = 5,
+        [Parameter(Mandatory=$false)]
+        [string]$authToken
     )
 
-    # Retrieve the PowerBI access token.
-    $token = (Get-PowerBIAccessToken)["Authorization"]
+    if ([string]::IsNullOrEmpty($authToken)) {
+        $authToken = Get-FabricAuthToken
+    }
 
+    $fabricHeaders = @{
+        'Content-Type'  = $contentType
+        'Authorization' = "Bearer {0}" -f $authToken
+    }
     # Make a GET request to the PowerBI API to retrieve the top refreshable capacities.
     # The function returns the 'value' property of the response.
-    return (Invoke-RestMethod -uri "https://api.powerbi.com/v1.0/myorg/capacities/refreshables?`$top=$top" -Headers @{ "Authorization" = $token } -Method GET).value
+    return (Invoke-RestMethod -uri "https://api.powerbi.com/v1.0/myorg/capacities/refreshables?`$top=$top" -Headers $fabricHeaders -Method GET).value
 }

@@ -23,7 +23,7 @@ The function retrieves the PowerBI access token and creates a new usage metrics 
 # This function retrieves workspace usage metrics.
 function Get-FabricWorkspaceUsageMetricsData {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBIWorkspaceUsageMetricsData", "Get-FabWorkspaceUsageMetricsData")]
+    [Alias("Get-FabWorkspaceUsageMetricsData")]
 
     # Define parameters for the workspace ID and username.
     param(
@@ -32,9 +32,6 @@ function Get-FabricWorkspaceUsageMetricsData {
         [Parameter(Mandatory = $false)]
         [string]$username = ""
     )
-
-    # Retrieve the PowerBI access token.
-    $token = (Get-PowerBIAccessToken)["Authorization"]
 
     # Create a new workspace usage metrics dataset.
     $datasetId = New-FabWorkspaceUsageMetricsReport -workspaceId $workspaceId
@@ -48,13 +45,13 @@ function Get-FabricWorkspaceUsageMetricsData {
     # For each report name, retrieve the report and add it to the hashtable.
     if ($username -eq "") {
         foreach ($reportname in $reportnames) {
-            $report = Get-PowerBIUsagemetricsQuery -DatasetID $datasetId -groupId $workspaceId -reportname $reportname -token $token
+            $report = Get-FabricUsagemetricsQuery -DatasetID $datasetId -groupId $workspaceId -reportname $reportname
             $reports += @{ $reportname.replace("'", "") = $report }
         }
     }
     else {
         foreach ($reportname in $reportnames) {
-            $report = Get-PowerBIUsagemetricsQuery -DatasetID $datasetId -groupId $workspaceId -reportname $reportname -token $token -ImpersonatedUser $username
+            $report = Get-FabricUsagemetricsQuery -DatasetID $datasetId -groupId $workspaceId -reportname $reportname -ImpersonatedUser $username
             $reports += @{ $reportname.replace("'", "") = $report }
         }
     }

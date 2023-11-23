@@ -26,7 +26,7 @@ The function checks if the Azure token is null. If it is, it connects to the Azu
 # This function retrieves the state of a specific capacity.
 function Get-FabricCapacityState {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBICapacityState","Get-FabCapacityState")]
+    [Alias("Get-FabCapacityState")]
 
     # Define mandatory parameters for the subscription ID, resource group, and capacity.
     Param (
@@ -35,22 +35,22 @@ function Get-FabricCapacityState {
         [Parameter(Mandatory=$true)]
         [string]$resourcegroup,
         [Parameter(Mandatory=$true)]
-        [string]$capacity
+        [string]$capacity,
+        [Parameter(Mandatory=$false)]
+        [string]$authToken
     )
 
-    # Check if the Azure token is null.
-    if ($null -eq $env:azToken) {
-        # If it is, connect to the Azure account and retrieve the token.
-        Connect-azaccount -Subscription $subscriptionID
-        $env:aztoken = "Bearer "+(get-azAccessToken).Token
+    if ([string]::IsNullOrEmpty($authToken)) {
+        $authToken = Get-FabricAuthToken
     }
-
-    # Define the headers for the GET request.
-    $headers = @{"Authorization"=$env:aztoken}
+    $fabricHeaders = @{
+        'Content-Type'  = $contentType
+        'Authorization' = "Bearer {0}" -f $authToken
+    }
 
     # Define the URL for the GET request.
     $getCapacityState = "https://management.azure.com/subscriptions/$subscriptionID/resourceGroups/$resourcegroup/providers/Microsoft.Fabric/capacities/$capacity/?api-version=2022-07-01-preview"
 
     # Make the GET request and return the response.
-    return Invoke-RestMethod -Method GET -Uri $getCapacityState -Headers $headers -ErrorAction Stop
+    return Invoke-RestMethod -Method GET -Uri $getCapacityState -Headers $fabricHeaders -ErrorAction Stop
 }

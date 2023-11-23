@@ -51,10 +51,14 @@ Once imported, you can call any of the functions provided by the module. For exa
 
 ```powershell
 # Assign a workspace to a capacity
-Assign-FabricWorkspaceToCapacity -WorkspaceId "Workspace-GUID" -CapacityId "Capacity-GUID"
+Register-FabricWorkspaceToCapacity -WorkspaceId "Workspace-GUID" -CapacityId "Capacity-GUID"
 ```
 
 Refer to the individual function documentation for detailed usage instructions.
+
+
+## [Release Notes](ReleaseNotes.md)
+
 
 ## Contributing
 
@@ -65,6 +69,7 @@ and the process for submitting pull requests to us.
 
 - **Ioana Bouariu** - *Initial work* - [Jojobit](https://github.com/Jojobit)
 
+
 See also the list of [contributors](https://github.com/Jojobit/fabtools/contributors) who participated in this project.
 
 ## License
@@ -74,3 +79,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 - GitHub Copilot and ChatGPT for helping with the documentation
+- [**Rui Romano**](https://github.com/RuiRomano) - His work on a [Fabric PowerShell module](https://github.com/RuiRomano/fabricps-pbip) has been included into this module with his permission. Thanks, Rui!

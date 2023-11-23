@@ -1,30 +1,24 @@
+
 <#
 .SYNOPSIS
-Retrieves the tenant settings.
+Retrieves the tenant settings from the Fabric API.
 
 .DESCRIPTION
-The Get-FabricTenantSettings function retrieves the tenant settings. It supports multiple aliases for flexibility.
+The Get-FabricTenantSettings function makes a GET request to the Fabric API to retrieve the tenant settings. It returns the 'tenantSettings' property of the first item in the response.
+
+.PARAMETER None
+This function does not have any parameters.
 
 .EXAMPLE
 Get-FabricTenantSettings
+Retrieves the tenant settings from the Fabric API.
 
-This example retrieves the tenant settings.
-
-.NOTES
-The function retrieves the PowerBI access token and makes a GET request to the Fabric API to retrieve the tenant settings. It then returns the 'tenantSettings' property of the first item in the response.
 #>
 
-# This function retrieves the tenant settings.
 function Get-FabricTenantSettings  {
-    # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBITenantSettings","Get-FabTenantSettings")]
+    [Alias("Get-FabTenantSettings")]
+    Param ()
+    $reply = Invoke-FabricAPIRequest -uri  "admin/tenantsettings"  -Method GET
 
-    # Retrieve the PowerBI access token.
-    $token = (Get-PowerBIAccessToken)["Authorization"]
-
-    # Make a GET request to the Fabric API to retrieve the tenant settings.
-    $reply = Invoke-RestMethod -uri "https://api.fabric.microsoft.com/v1/admin/tenantsettings" -Headers @{ "Authorization" = $token } -Method GET
-
-    # Return the 'tenantSettings' property of the first item in the response.
     return $reply[0].tenantSettings
 }

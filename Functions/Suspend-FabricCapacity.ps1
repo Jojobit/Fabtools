@@ -26,11 +26,12 @@ The function defines parameters for the subscription ID, resource group, and cap
 # This function suspends a capacity.
 function Suspend-FabricCapacity {
     # Define aliases for the function for flexibility.
-    [Alias("Suspend-PowerBICapacity", "Suspend-FabCapacity")]
+    [Alias("Suspend-FabCapacity")]
     [CmdletBinding(SupportsShouldProcess)]
 
     # Define parameters for the subscription ID, resource group, and capacity.
     Param (
+        [Parameter(Mandatory = $false)] [string] $authToken,
         [Parameter(Mandatory = $true)]
         [string]$subscriptionID,
         [Parameter(Mandatory = $true)]
@@ -40,20 +41,20 @@ function Suspend-FabricCapacity {
     )
 
     # If the 'azToken' environment variable is null, connect to the Azure account and set the 'azToken' environment variable.
-    if ($null -eq $env:azToken) {
-        Connect-azaccount -Subscription $subscriptionID
-        $env:aztoken = "Bearer " + (get-azAccessToken).Token
+    if ([string]::IsNullOrEmpty($authToken)) {
+        $authToken = Get-FabricAuthToken
     }
 
-    # Define the headers for the request.
-    $headers = @{"Authorization" = $env:aztoken }
+    $fabricHeaders = @{
+        'Authorization' = "Bearer {0}" -f $authToken
+    }
 
     # Define the URI for the request.
     $suspendCapacity = "https://management.azure.com/subscriptions/$subscriptionID/resourceGroups/$resourcegroup/providers/Microsoft.Fabric/capacities/$capacity/suspend?api-version=2022-07-01-preview"
 
     # Make a GET request to the URI and return the response.
     if($PSCmdlet.ShouldProcess("Suspend capacity $capacity")) {
-        return Invoke-RestMethod -Method POST -Uri $suspendCapacity -Headers $headers -ErrorAction Stop
+        return Invoke-RestMethod -Method POST -Uri $suspendCapacity -Headers $fabricHeaders -ErrorAction Stop
     }
 
 }

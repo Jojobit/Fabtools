@@ -26,11 +26,12 @@ The function defines parameters for the subscription ID, resource group, and cap
 # This function resumes a capacity.
 function Resume-FabricCapacity {
     # Define aliases for the function for flexibility.
-    [Alias("Resume-PowerBICapacity", "Resume-FabCapacity")]
+    [Alias("Resume-FabCapacity")]
     [CmdletBinding(SupportsShouldProcess)]
 
     # Define parameters for the subscription ID, resource group, and capacity.
     Param (
+        [Parameter(Mandatory = $false)] [string] $authToken,
         [Parameter(Mandatory = $true)]
         [string]$subscriptionID,
         [Parameter(Mandatory = $true)]
@@ -40,19 +41,19 @@ function Resume-FabricCapacity {
     )
 
     # If the 'azToken' environment variable is null, connect to the Azure account and set the 'azToken' environment variable.
-    if ($null -eq $env:azToken) {
-        Connect-azaccount -Subscription $subscriptionID
-        $env:aztoken = "Bearer " + (get-azAccessToken).Token
+    if ([string]::IsNullOrEmpty($authToken)) {
+        $authToken = Get-FabricAuthToken
     }
 
-    # Define the headers for the request.
-    $headers = @{"Authorization" = $env:aztoken }
+    $fabricHeaders = @{
+        'Authorization' = "Bearer {0}" -f $authToken
+    }
 
     # Define the URI for the request.
     $resumeCapacity = "https://management.azure.com/subscriptions/$subscriptionID/resourceGroups/$resourcegroup/providers/Microsoft.Fabric/capacities/$capacity/resume?api-version=2022-07-01-preview"
 
     # Make a GET request to the URI and return the response.
     if ($PSCmdlet.ShouldProcess("Resume capacity $capacity")) {
-        return Invoke-RestMethod -Method POST -Uri $resumeCapacity -Headers $headers -ErrorAction Stop
+        return Invoke-RestMethod -Method POST -Uri $resumeCapacity -Headers $fabricHeaders -ErrorAction Stop
     }
 }

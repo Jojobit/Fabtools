@@ -17,16 +17,16 @@ The function makes a GET request to the PowerBI API to retrieve the refreshes. I
 # This function retrieves all refreshes for all datasets in all PowerBI workspaces.
 function Get-AllFabricDatasetRefreshes {
     # Define aliases for the function for flexibility.
-    [Alias("Get-AllPowerBIDatasetRefreshes", "Get-AllFabDatasetRefreshes")]
+    [Alias("Get-AllFabDatasetRefreshes")]
 
     # Retrieve all PowerBI workspaces.
-    $wsps = Get-PowerBIWorkspace
+    $wsps = Get-FabricWorkspace
     # Initialize an array to store the refreshes.
     $refs = @()
     # Loop through each workspace.
     foreach ($w in $wsps) {
         # Get a list of all the datasets in the workspace.
-        $d = Get-PowerBIDataset -workspaceid $w.Id
+        $d = Get-FabricDataset -workspaceid $w.Id -ErrorAction SilentlyContinue
         # Loop through each dataset.
         foreach ($di in $d) {
             # Check if the dataset is refreshable.

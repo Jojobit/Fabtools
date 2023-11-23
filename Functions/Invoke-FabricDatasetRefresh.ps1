@@ -12,19 +12,22 @@
 .EXAMPLE
     Invoke-FabricDatasetRefresh  -DatasetID "12345678-1234-1234-1234-123456789012"
 
-    This command invokes a refresh of the dataset with the ID "12345678-1234-1234-1234-123456789012" 
+    This command invokes a refresh of the dataset with the ID "12345678-1234-1234-1234-123456789012"
 .NOTES
-    Alias: Invoke-PowerBIDatasetRefresh, Invoke-FabDatasetRetresh
+    Alias: Invoke-FabDatasetRetresh
 #>
 function Invoke-FabricDatasetRefresh {
     # Define aliases for the function for flexibility.
-    [Alias("Invoke-PowerBIDatasetRefresh", "Invoke-FabDatasetRefresh")]
+    [Alias("Invoke-FabDatasetRefresh")]
 
     # Define parameters for the workspace ID and dataset ID.
     param(
         # Mandatory parameter for the dataset ID
         [Parameter(Mandatory = $true, ParameterSetName = "DatasetId")]
-        [string]$DatasetID
+        [string]$DatasetID,
+        # Optional parameter for the authentication token
+        [Parameter(Mandatory = $false)]
+        [string]$authToken
     )
 
     # Check if the dataset is refreshable
@@ -35,11 +38,17 @@ function Invoke-FabricDatasetRefresh {
     else {
         # If the dataset is refreshable, invoke a PowerBI REST method to refresh the dataset
         # The URL for the request is constructed using the provided workspace ID and dataset ID.
-        $token = (Get-PowerBIAccessToken)["Authorization"]
+        if ([string]::IsNullOrEmpty($authToken)) {
+            $authToken = Get-FabricAuthToken
+        }
+        $fabricHeaders = @{
+            'Content-Type'  = $contentType
+            'Authorization' = "Bearer {0}" -f $authToken
+        }
         # Check if the dataset is refreshable
 
         # If the dataset is refreshable, invoke a PowerBI REST method to refresh the dataset
         # The URL for the request is constructed using the provided workspace ID and dataset ID.
-        return invoke-restmethod -Method POST -uri ("https://api.powerbi.com/v1.0/myorg/datasets/$datasetid/refreshes") -Headers @{ "Authorization" = $token }
+        return invoke-restmethod -Method POST -uri ("https://api.powerbi.com/v1.0/myorg/datasets/$datasetid/refreshes") -Headers $fabricHeaders
     }
 }

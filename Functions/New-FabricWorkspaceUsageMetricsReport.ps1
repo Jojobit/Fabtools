@@ -20,23 +20,30 @@ The function retrieves the PowerBI access token and the Fabric API cluster URI. 
 # This function retrieves the workspace usage metrics dataset ID.
 function New-FabricWorkspaceUsageMetricsReport {
     # Define aliases for the function for flexibility.
-    [Alias("New-PowerBIWorkspaceUsageMetricsReport", "New-FabWorkspaceUsageMetricsReport")]
+    [Alias("New-FabWorkspaceUsageMetricsReport")]
     [CmdletBinding(SupportsShouldProcess)]
     # Define a parameter for the workspace ID.
     param(
         [Parameter(Mandatory = $true)]
-        [string]$workspaceId
+        [string]$workspaceId,
+        [Parameter(Mandatory=$false)]
+        [string]$authToken
     )
 
-    # Retrieve the PowerBI access token.
-    $token = (Get-PowerBIAccessToken)["Authorization"]
+    if ([string]::IsNullOrEmpty($authToken)) {
+        $authToken = Get-FabricAuthToken
+    }
 
+    $fabricHeaders = @{
+        'Content-Type'  = $contentType
+        'Authorization' = "Bearer {0}" -f $authToken
+    }
     # Retrieve the Fabric API cluster URI.
-    $url = get-FabAPIclusterURI
+    $url = get-FabricAPIclusterURI
 
     # Make a GET request to the Fabric API to retrieve the workspace usage metrics dataset ID.
     if ($PSCmdlet.ShouldProcess("Workspace Usage Metrics Report", "Retrieve")) {
-        $data = Invoke-WebRequest -Uri "$url/$workspaceId/usageMetricsReportV2?experience=power-bi" -Headers @{ "Authorization" = $token } -ErrorAction SilentlyContinue
+        $data = Invoke-WebRequest -Uri "$url/$workspaceId/usageMetricsReportV2?experience=power-bi" -Headers $fabricHeaders -ErrorAction SilentlyContinue
         # Parse the response and replace certain keys to match the expected format.
         $response = $data.Content.ToString().Replace("nextRefreshTime", "NextRefreshTime").Replace("lastRefreshTime", "LastRefreshTime") | ConvertFrom-Json
 

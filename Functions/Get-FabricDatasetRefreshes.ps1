@@ -27,7 +27,7 @@
 #>
 function Get-FabricDatasetRefreshes {
     # Define aliases for the function for flexibility.
-    [Alias("Get-PowerBIDatasetRefreshes","Get-FabDatasetRefreshes")]
+    [Alias("Get-FabDatasetRefreshes")]
 
     # Define a mandatory parameter for the dataset ID.
     Param (
