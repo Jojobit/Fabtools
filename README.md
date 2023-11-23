@@ -58,6 +58,13 @@ Refer to the individual function documentation for detailed usage instructions.
 
 
 ## [Release Notes](ReleaseNotes.md)
+### Version 0.7.0:
+- The official Rest API for Microsoft Fabric is now Public. This means that there are a lot of new possibilities for this module.
+- After a great talk with Rui Romano, he's graciously allowed us to integrate the functions from his project: fabricps-pbip ([GitHub Repository](https://github.com/RuiRomano/fabricps-pbip)) into Fabtools.
+- Lots of new functions to make it easier to work with Microsoft Fabric.
+- It is now possible to export and import items from a workspace. Currently that includes reports (pbip), semantic models (datasets), spark jobs, and notebooks (ipynb).
+- It is now possible to register and unregister a workspace to/from a capacity.
+- Several functions have been rewritten to use the new fabric API endpoint rather than the old PowerBI API endpoint.
 
 
 ## Contributing
