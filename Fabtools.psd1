@@ -12,7 +12,7 @@
     RootModule = 'Fabtools.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.7.0'
+    ModuleVersion     = '0.7.0.2'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -55,10 +55,10 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules   = @('MicrosoftPowerBIMgmt','Az.Accounts','Az.Resources')
+    RequiredModules   = @('Az.Accounts', 'Az.Resources','MicrosoftPowerBIMgmt')
 
     # Assemblies that must be loaded prior to importing this module
-    #RequiredAssemblies = @('Az.Accounts', 'Az.Resources')
+    #RequiredAssemblies = @('Microsoft.Azure.PowerShell.Authentication')
 
     # Script files (.ps1) that are run in the caller's environment prior to importing this module.
     # ScriptsToProcess = @()
@@ -177,6 +177,12 @@
 
             # ReleaseNotes of this module
             ReleaseNotes = @("
+            Version 0.7.0.2:
+            - Fixed a bug that made the the module return an error on the first attempt to get data from the Rest API.
+
+            Version 0.7.0.1:
+            - Removed the parameter outfile in the function Invoke-FabricAPIRequest, as it led to an error in PowerShell version 7.4
+
             Version 0.7.0:
             - The official Rest API for Microsoft Fabric is now Public. This means that there are a lot of new possibilities for this module.
             - After a great talk with Rui Romano, he's graciously allowed us to integrate the functions from his project: fabricps-pbip (https://github.com/RuiRomano/fabricps-pbip) into Fabtools.

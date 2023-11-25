@@ -62,12 +62,12 @@ Function Invoke-FabricAPIRequest {
         [Parameter(Mandatory = $false)] $body,
         [Parameter(Mandatory = $false)] [string] $contentType = "application/json; charset=utf-8",
         [Parameter(Mandatory = $false)] [int] $timeoutSec = 240,
-        [Parameter(Mandatory = $false)] [string] $outFile,
         [Parameter(Mandatory = $false)] [int] $retryCount = 0
 
     )
 
     if ([string]::IsNullOrEmpty($authToken)) {
+        $authToken = Get-FabricAuthToken
         $authToken = Get-FabricAuthToken
     }
 
@@ -75,14 +75,16 @@ Function Invoke-FabricAPIRequest {
         'Content-Type'  = $contentType
         'Authorization' = "Bearer {0}" -f $authToken
     }
+    write-verbose  "authToken: $authToken"
 
     try {
+
 
         $requestUrl = "$($script:apiUrl)/$uri"
 
         Write-Verbose "Calling $requestUrl"
 
-        $response = Invoke-WebRequest -Headers $fabricHeaders -Method $method -Uri $requestUrl -Body $body  -TimeoutSec $timeoutSec -OutFile $outFile
+        $response = Invoke-WebRequest -Headers $fabricHeaders -Method $method -Uri $requestUrl -Body $body -TimeoutSec $timeoutSec 
 
         if ($response.StatusCode -eq 202) {
             do {
@@ -143,7 +145,7 @@ Function Invoke-FabricAPIRequest {
                 $maxRetries = 3
 
                 if ($retryCount -le $maxRetries) {
-                    Invoke-FabricAPIRequest -authToken $authToken -uri $uri -method $method -body $body -contentType $contentType -timeoutSec $timeoutSec -outFile $outFile -retryCount ($retryCount + 1)
+                    Invoke-FabricAPIRequest -authToken $authToken -uri $uri -method $method -body $body -contentType $contentType -timeoutSec $timeoutSec -retryCount ($retryCount + 1)
                 }
                 else {
                     throw "Exceeded the amount of retries ($maxRetries) after 429 error."

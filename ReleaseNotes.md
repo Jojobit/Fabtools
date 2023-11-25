@@ -1,4 +1,9 @@
 # Release Notes
+## Version 0.7.0.2:
+- Fixed a bug that made the the module return an error on the first attempt to get data from the Rest API.
+
+## Version 0.7.0.1:
+- Removed the parameter outfile in the function Invoke-FabricAPIRequest, as it led to an error in PowerShell version 7.4
 
 ## Version 0.7.0:
 - The official Rest API for Microsoft Fabric is now Public. This means that there are a lot of new possibilities for this module.

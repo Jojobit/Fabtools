@@ -56,8 +56,24 @@ Register-FabricWorkspaceToCapacity -WorkspaceId "Workspace-GUID" -CapacityId "Ca
 
 Refer to the individual function documentation for detailed usage instructions.
 
+Every now and again the authentication token might time out. Run this to get a new one:
+```powershell
+Set-FabricAuthToken
+```
+
+If you want to change user context run this:
+```powershell
+Set-FabricAuthToken -reset
+```
+
 
 ## [Release Notes](ReleaseNotes.md)
+### Version 0.7.0.2:
+- Fixed a bug that made the the module return an error on the first attempt to get data from the Rest API.
+
+### Version 0.7.0.1:
+- Removed the parameter outfile in the function Invoke-FabricAPIRequest, as it led to an error in PowerShell version 7.4
+
 ### Version 0.7.0:
 - The official Rest API for Microsoft Fabric is now Public. This means that there are a lot of new possibilities for this module.
 - After a great talk with Rui Romano, he's graciously allowed us to integrate the functions from his project: fabricps-pbip ([GitHub Repository](https://github.com/RuiRomano/fabricps-pbip)) into Fabtools.
