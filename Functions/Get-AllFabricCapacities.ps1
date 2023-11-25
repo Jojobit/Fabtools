@@ -40,14 +40,14 @@ function Get-AllFabricCapacities {
         # If the 'azToken' environment variable is null, connect to the Azure account and set the 'azToken' environment variable.
         if ($null -eq $env:azToken) {
             # Connect to the Azure account
-            Connect-azaccount
+            Connect-azaccount | Out-Null
             # Set the context to the provided subscription ID
-            set-azcontext -SubscriptionId $subscriptionID
+            set-azcontext -SubscriptionId $subscriptionID | Out-Null
             # Set the 'azToken' environment variable
             $env:aztoken = "Bearer " + (get-azAccessToken).Token
         }
         # Set the context to the provided subscription ID
-        set-azcontext -SubscriptionId $subscriptionID
+        set-azcontext -SubscriptionId $subscriptionID | Out-Null
 
         # Get all resource groups in the subscription
         $rgs = Get-AzResourceGroup
@@ -62,7 +62,7 @@ function Get-AllFabricCapacities {
         # If no subscription ID is provided, get all subscriptions
         if ($null -eq $env:azToken) {
             # Connect to the Azure account
-            Connect-azaccount
+            Connect-azaccount | Out-Null
             # Set the 'azToken' environment variable
             $env:aztoken = "Bearer " + (get-azAccessToken).Token
         }
@@ -72,7 +72,7 @@ function Get-AllFabricCapacities {
         # For each subscription, set the context to the subscription ID
         foreach ($sub in $subscriptions) {
             # Set the context to the subscription ID
-            set-azcontext -SubscriptionId $sub.id
+            set-azcontext -SubscriptionId $sub.id | Out-Null
 
             # Get all resource groups in the subscription
             $rgs = Get-AzResourceGroup
