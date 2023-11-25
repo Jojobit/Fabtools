@@ -1,4 +1,7 @@
 # Release Notes
+## Version 0.7.0.3:
+- Fixed the functions related to checking, pausing and activating Fabric capacities in Azure
+
 ## Version 0.7.0.2:
 - Fixed a bug that made the the module return an error on the first attempt to get data from the Rest API.
 

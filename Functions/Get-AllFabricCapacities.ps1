@@ -38,14 +38,16 @@ function Get-AllFabricCapacities {
     # If a subscription ID is provided
     if ($subscriptionID) {
         # If the 'azToken' environment variable is null, connect to the Azure account and set the 'azToken' environment variable.
-        if (!$script:fabricToken) {
+        if ($null -eq $env:azToken) {
             # Connect to the Azure account
-            Get-FabricAuthToken | Out-Null
+            Connect-azaccount
             # Set the context to the provided subscription ID
-            set-azcontext -SubscriptionId $subscriptionID | Out-Null
+            set-azcontext -SubscriptionId $subscriptionID
+            # Set the 'azToken' environment variable
+            $env:aztoken = "Bearer " + (get-azAccessToken).Token
         }
         # Set the context to the provided subscription ID
-        set-azcontext -SubscriptionId $subscriptionID | Out-Null
+        set-azcontext -SubscriptionId $subscriptionID
 
         # Get all resource groups in the subscription
         $rgs = Get-AzResourceGroup
@@ -58,20 +60,22 @@ function Get-AllFabricCapacities {
     }
     else {
         # If no subscription ID is provided, get all subscriptions
-        IF (!$script:fabricToken) {
+        if ($null -eq $env:azToken) {
             # Connect to the Azure account
-            Get-FabricAuthToken | Out-Null
+            Connect-azaccount
+            # Set the 'azToken' environment variable
+            $env:aztoken = "Bearer " + (get-azAccessToken).Token
         }
         # Get all subscriptions
-        $subscriptions = Get-AzSubscription -ErrorAction SilentlyContinue
+        $subscriptions = Get-AzSubscription
 
         # For each subscription, set the context to the subscription ID
         foreach ($sub in $subscriptions) {
             # Set the context to the subscription ID
-            set-azcontext -SubscriptionId $sub.id  | Out-Null
+            set-azcontext -SubscriptionId $sub.id
 
             # Get all resource groups in the subscription
-            $rgs = Get-AzResourceGroup -ErrorAction SilentlyContinue
+            $rgs = Get-AzResourceGroup
 
             # For each resource group, get all resources of type "Microsoft.Fabric/capacities"
             foreach ($r in $rgs) {

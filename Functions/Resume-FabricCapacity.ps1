@@ -31,7 +31,6 @@ function Resume-FabricCapacity {
 
     # Define parameters for the subscription ID, resource group, and capacity.
     Param (
-        [Parameter(Mandatory = $false)] [string] $authToken,
         [Parameter(Mandatory = $true)]
         [string]$subscriptionID,
         [Parameter(Mandatory = $true)]
@@ -41,19 +40,19 @@ function Resume-FabricCapacity {
     )
 
     # If the 'azToken' environment variable is null, connect to the Azure account and set the 'azToken' environment variable.
-    if ([string]::IsNullOrEmpty($authToken)) {
-        $authToken = Get-FabricAuthToken
+    if ($null -eq $env:azToken) {
+        Connect-azaccount -Subscription $subscriptionID
+        $env:aztoken = "Bearer " + (get-azAccessToken).Token
     }
 
-    $fabricHeaders = @{
-        'Authorization' = "Bearer {0}" -f $authToken
-    }
+    # Define the headers for the request.
+    $headers = @{"Authorization" = $env:aztoken }
 
     # Define the URI for the request.
     $resumeCapacity = "https://management.azure.com/subscriptions/$subscriptionID/resourceGroups/$resourcegroup/providers/Microsoft.Fabric/capacities/$capacity/resume?api-version=2022-07-01-preview"
 
     # Make a GET request to the URI and return the response.
     if ($PSCmdlet.ShouldProcess("Resume capacity $capacity")) {
-        return Invoke-RestMethod -Method POST -Uri $resumeCapacity -Headers $fabricHeaders -ErrorAction Stop
+        return Invoke-RestMethod -Method POST -Uri $resumeCapacity -Headers $headers -ErrorAction Stop
     }
 }

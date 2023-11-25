@@ -35,22 +35,22 @@ function Get-FabricCapacityState {
         [Parameter(Mandatory=$true)]
         [string]$resourcegroup,
         [Parameter(Mandatory=$true)]
-        [string]$capacity,
-        [Parameter(Mandatory=$false)]
-        [string]$authToken
+        [string]$capacity
     )
 
-    if ([string]::IsNullOrEmpty($authToken)) {
-        $authToken = Get-FabricAuthToken
+    # Check if the Azure token is null.
+    if ($null -eq $env:azToken) {
+        # If it is, connect to the Azure account and retrieve the token.
+        Connect-azaccount -Subscription $subscriptionID
+        $env:aztoken = "Bearer "+(get-azAccessToken).Token
     }
-    $fabricHeaders = @{
-        'Content-Type'  = $contentType
-        'Authorization' = "Bearer {0}" -f $authToken
-    }
+
+    # Define the headers for the GET request.
+    $headers = @{"Authorization"=$env:aztoken}
 
     # Define the URL for the GET request.
     $getCapacityState = "https://management.azure.com/subscriptions/$subscriptionID/resourceGroups/$resourcegroup/providers/Microsoft.Fabric/capacities/$capacity/?api-version=2022-07-01-preview"
 
     # Make the GET request and return the response.
-    return Invoke-RestMethod -Method GET -Uri $getCapacityState -Headers $fabricHeaders -ErrorAction Stop
+    return Invoke-RestMethod -Method GET -Uri $getCapacityState -Headers $headers -ErrorAction Stop
 }
