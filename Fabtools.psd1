@@ -12,7 +12,7 @@
     RootModule = 'Fabtools.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.7.0.3'
+    ModuleVersion     = '0.7.0.4'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -177,6 +177,9 @@
 
             # ReleaseNotes of this module
             ReleaseNotes = @("
+            Version 0.7.0.4:
+            - Fix a bug where the Fabric API didn't have a result URI
+
             Version 0.7.0.3:
             - Fixed the functions related to checking, pausing and activating Fabric capacities in Azure
 

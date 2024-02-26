@@ -87,22 +87,31 @@ Function Invoke-FabricAPIRequest {
         $response = Invoke-WebRequest -Headers $fabricHeaders -Method $method -Uri $requestUrl -Body $body -TimeoutSec $timeoutSec 
 
         if ($response.StatusCode -eq 202) {
-            do {
-                $asyncUrl = [string]$response.Headers.Location
-
-                Write-Output "Waiting for request to complete. Sleeping..."
-
-                Start-Sleep -Seconds 5
-
-                $response = Invoke-WebRequest -Headers $fabricHeaders -Method Get -Uri $asyncUrl
-
-                $lroStatusContent = $response.Content | ConvertFrom-Json
-
+            if ($uri -match "jobType=Pipeline") {
+                write-output "Waiting for pipeline to complete. Please check the status in the Power BI Service."
             }
-            while ($lroStatusContent.status -ine "succeeded" -and $lroStatusContent.status -ine "failed")
+            else {
+                do {
+                    $asyncUrl = [string]$response.Headers.Location
+                
 
-            $response = Invoke-WebRequest -Headers $fabricHeaders -Method Get -Uri "$asyncUrl/result"
+                    Write-Output "Waiting for request to complete. Sleeping..."
 
+                    Start-Sleep -Seconds 5
+
+                    $response2 = Invoke-WebRequest -Headers $fabricHeaders -Method Get -Uri $asyncUrl
+
+                    $lroStatusContent = $response2.Content | ConvertFrom-Json
+                }
+                while ($lroStatusContent.status -ine "succeeded" -and $lroStatusContent.status -ine "failed")
+            
+                try {
+                    $response = Invoke-WebRequest -Headers $fabricHeaders -Method Get -Uri "$asyncUrl/result"
+                }
+                catch {
+                    write-output "No result URL"
+                }
+            }
         }
 
         #if ($response.StatusCode -in @(200,201) -and $response.Content)
@@ -120,10 +129,15 @@ Function Invoke-FabricAPIRequest {
 
             Write-Output $jsonResult -NoEnumerate
         }
+        
+        else {
+            Write-Output $response -NoEnumerate
+        }
     }
     catch {
         $ex = $_.Exception
         $message = $null
+       
 
         if ($null -ne $ex.Response) {
 
@@ -177,7 +191,7 @@ Function Invoke-FabricAPIRequest {
             $message = "$($ex.Message)"
         }
         if ($message) {
-            throw $message
+            throw $message 
         }
     }
 }
